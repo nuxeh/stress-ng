@@ -21,7 +21,7 @@ VERSION=0.07.01
 # Codename "pathological process pounder"
 #
 
-CFLAGS += -Wall -Wextra -DVERSION='"$(VERSION)"' -O2 -std=gnu99 
+CFLAGS += -static -Wall -Wextra -DVERSION='"$(VERSION)"' -O2 -std=gnu99 
 
 #
 # Pedantic flags
@@ -33,7 +33,7 @@ CFLAGS += -Wabi -Wcast-qual -Wfloat-equal -Wmissing-declarations \
 	-Wno-missing-braces -Wno-sign-compare -Wno-multichar
 endif
 
-LDFLAGS += -lc
+LDFLAGS += --static
 
 BINDIR=/usr/bin
 MANDIR=/usr/share/man/man1
@@ -385,7 +385,7 @@ endif
 	@$(CC) $(CFLAGS) -c -o $@ $<
 
 stress-ng: $(OBJS)
-	$(CC) $(CPPFLAGS) $(CFLAGS) $(OBJS) -lm $(LDFLAGS) -o $@
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(OBJS) -lm $(LDFLAGS) -lc -o $@
 
 #
 #  check if we can build against AppArmor
